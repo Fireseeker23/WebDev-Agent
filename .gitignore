@@ -1,0 +1,22 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+.venv/
+*.py[cod]
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.eslintcache
+
+# Project generated files
+WorkingDirectory/*
+!WorkingDirectory/.gitkeep
+tests/
+
+# System
+.DS_Store
