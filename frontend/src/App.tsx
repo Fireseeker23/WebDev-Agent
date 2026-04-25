@@ -73,7 +73,7 @@ function MessageBubble({ msg }: { msg: Message }) {
 }
 
 // ── Preview Panel ──────────────────────────────────────────────────────────
-const PREVIEW_URL = 'http://localhost:8000/preview/'
+const PREVIEW_URL = '/preview/'
 
 function PreviewPanel({ refreshKey }: { refreshKey: number }) {
   return (
@@ -111,7 +111,7 @@ export default function App() {
 
   // Check if WorkingDirectory has an index.html on mount
   useEffect(() => {
-    fetch('http://localhost:8000/api/preview/files')
+    fetch('/api/preview/files')
       .then(r => r.json())
       .then(d => { if (d.has_index) setShowPreview(true) })
       .catch(() => {})
@@ -131,7 +131,7 @@ export default function App() {
     setMessages(prev => [...prev, { role: 'agent', events: [] }])
 
     try {
-      const res = await fetch('http://localhost:8000/api/chat/stream', {
+      const res = await fetch('/api/chat/stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt, session_id: sessionId }),
@@ -184,7 +184,7 @@ export default function App() {
       // Auto-refresh preview after the agent finishes (files may have changed)
       setPreviewKey(k => k + 1)
       // Re-check for index.html
-      fetch('http://localhost:8000/api/preview/files')
+      fetch('/api/preview/files')
         .then(r => r.json())
         .then(d => { if (d.has_index) setShowPreview(true) })
         .catch(() => {})
@@ -210,7 +210,7 @@ export default function App() {
           <div className="header-actions">
             <button
               className="download-btn"
-              onClick={() => window.open('http://localhost:8000/api/download', '_blank')}
+              onClick={() => window.open('/api/download', '_blank')}
               title="Download project as ZIP"
             >
               📥 <span className="btn-label">Download</span>
