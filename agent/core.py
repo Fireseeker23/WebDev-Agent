@@ -9,8 +9,12 @@ from agent.functions.get_file_content import schema_get_file_content
 from agent.functions.run_python_file import schema_run_python_file
 from agent.functions.write_file import schema_write_file
 from agent.functions.master_call_function import call_function
+
 load_dotenv()
 api_key = os.environ.get('GEMINI_API_KEY')
+if not api_key:
+    raise ValueError("GEMINI_API_KEY not found in environment variables")
+
 client = genai.Client(api_key=api_key)
 
 system_prompt = """
