@@ -34,8 +34,8 @@ RUN mkdir -p WorkingDirectory
 
 COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 
-# Expose the port FastAPI runs on
+
 EXPOSE 8000
 
-# Start the application
+
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
