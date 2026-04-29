@@ -89,10 +89,18 @@ async def clear_session(session_id: str):
     return {"cleared": session_id}
 
 
+@app.get("/preview/")
+async def serve_preview_index():
+    index_file = WORKING_DIR / "index.html"
+    if index_file.exists():
+        return FileResponse(index_file)
+    return FileResponse(Path(__file__).resolve().parent / "placeholder.html")
+
 app.mount("/preview", StaticFiles(directory=str(WORKING_DIR), html=True), name="preview")
 
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 if FRONTEND_DIR.exists():
     app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
+
 
